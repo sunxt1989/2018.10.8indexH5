@@ -1,0 +1,215 @@
+header{
+     width:100%;
+     height:0.8rem;
+     position: fixed;
+     top:0;
+     left:0;
+     text-align: center;
+     background-color: #00ccff;
+     color: #fff;
+     line-height: 0.8rem;
+     z-index:1000;
+ }
+header .title-name{
+    display: inline-block;
+    max-width:5rem;
+    height: 0.8rem;
+    overflow: hidden;
+    font-size: 0.3rem;
+}
+header .back{
+    display: inline-block;
+    position: absolute;
+    top:0rem;
+    left:0.2rem;
+    font-size: 0.4rem;
+    color: #fff;
+}
+.content{
+    margin-top: 0.8rem;
+    margin-bottom: 2.5rem;
+}
+
+.content .list{
+    width:100%;
+    padding: 0.2rem;
+}
+.content .list .list-li{
+    width:100%;
+    border-bottom: 0.02rem solid #ccc;
+    padding: 0.2rem 0;
+}
+.content .list .list-li .checkbox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 3px;
+    border: 0.02rem solid #bfbfbf;
+    cursor: pointer;
+    color: #02c2f2;
+    margin-right: 0.2em;
+    vertical-align: middle;
+}
+.content .list .list-li .checkbox i {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: none;
+    font-size:0.3rem;
+}
+.content .list .list-li .checkbox input {
+    position: absolute;
+    z-index: 2;
+    left: -10px;
+    top: -10px;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    cursor: pointer;
+}
+.content .list .list-li .checkbox input[type="checkbox"]:checked + i {
+    display: block;
+}
+.content .list .list-li .list-li-img{
+    display: inline-block;
+    width:0.4rem;
+    height:0.4rem;
+    vertical-align: middle;
+}
+
+.content .list .list-li .list-li-name{
+    display: inline-block;
+    width:2rem;
+    height: 0.6rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    font-size: 0.24rem;
+}
+.content .list .list-li .list-li-name .list-li-time{
+    color: #999999;
+    font-size: 0.24rem;
+    margin-top: 0.1rem;
+}
+.content .list .list-li .list-li-detailed{
+    display: inline-block;
+    width:1.5rem;
+    font-size: 0.24rem;
+    height: 0.6rem;
+    vertical-align: middle;
+    overflow: hidden;
+}
+.content .list .list-li .list-li-money{
+    display: inline-block;
+    width:1.3rem;
+    font-size: 0.22rem;
+    height: 0.6rem;
+    text-align: right;
+    vertical-align: middle;
+    word-wrap:break-word;
+    word-spacing:normal;
+}
+.footer{
+    width:100%;
+    height:2.5rem;
+    position: fixed;
+    bottom:0;
+    left:0;
+    right: 0;
+    background-color: #fff;
+}
+.footer .footer-top{
+    width:100%;
+    padding: 0.2rem;
+}
+.footer .footer-top .checkbox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 3px;
+    border: 0.02rem solid #bfbfbf;
+    cursor: pointer;
+    color: #02c2f2;
+    margin-right: 0.2em;
+    vertical-align: middle;
+}
+.footer .footer-top .checkbox i {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: none;
+    font-size:0.3rem;
+}
+.footer .footer-top .checkbox input {
+    position: absolute;
+    z-index: 2;
+    left: -10px;
+    top: -10px;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    cursor: pointer;
+}
+.footer .footer-top .checkbox input[type="checkbox"]:checked + i {
+    display: block;
+}
+.footer .footer-top .total-selection{
+    display: inline-block;
+}
+.footer .footer-top .addReimbursement{
+    display: inline-block;
+    width:2rem;
+    height:0.6rem;
+    background-color: #00ccff;
+    color: #fff;
+    line-height: 0.6rem;
+    text-align: center;
+    border-radius: 3px;
+    border: 0.02rem solid #00ccff;
+    float: right;
+}
+.footer .footer-bottom{
+    width:100%;
+    height:100%;
+    border-top:0.03rem solid #51dbb7;
+    background-color: #f5feff;
+    text-align: center;
+}
+.footer .footer-bottom a{
+    color: #333;
+}
+.footer .footer-bottom .icon-jilu{
+    display: inline-block;
+    font-size:0.6rem;
+    margin: 0.2rem 0;
+}
+.message{
+    width:5rem;
+    padding: 0.2rem;
+    position: fixed;
+    top:1rem;
+    left:50%;
+    margin-left: -2.5rem;
+    background-color: #ccc;
+    border-radius: 5px;
+    color: #333;
+    display: none;
+}
+.message .message-content{
+    display: inline-block;
+    float: left;
+}
+.message .message-close{
+    display: inline-block;
+    float: right;
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content=/"portrait">
+    <!-- QQ强制竖屏 -->
+    <!--<meta name="x5-orientation" content="portrait">-->
+    <!-- UC强制全屏 -->
+    <!--<meta name="full-screen" content="yes">-->
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/iconfont.css">
+    <link rel="stylesheet" href="../../css/personal.css">
+    <script>
+        (function(designWidth, maxWidth) {
+            var doc = document,
+                    win = window;
+            var docEl = doc.documentElement;
+            var tid,rootItem,rootStyle;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                if (!maxWidth) {
+                    maxWidth = 540;
+                };
+                if (width > maxWidth) {
+                    width = maxWidth;
+                }
+                //与淘宝做法不同，直接采用简单的rem换算方法1rem=100px
+                var rem = width * 100 / designWidth;
+                //兼容UC开始
+                rootStyle="html{font-size:"+rem+'px !important}';
+                rootItem = document.getElementById('rootsize') || document.createElement("style");
+                if(!document.getElementById('rootsize')){
+                    document.getElementsByTagName("head")[0].appendChild(rootItem);
+                    rootItem.id='rootsize';
+                }
+                if(rootItem.styleSheet){
+                    rootItem.styleSheet.disabled||(rootItem.styleSheet.cssText=rootStyle)
+                }else{
+                    try{rootItem.innerHTML=rootStyle}catch(f){rootItem.innerText=rootStyle}
+                }
+                //兼容UC结束
+                docEl.style.fontSize = rem + "px";
+            };
+            refreshRem();
+
+            win.addEventListener("resize", function() {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function(e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function(e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(640, 640);
+    </script>
+</head>
+<body>
+<header>
+    <div class="back"></div>
+    <span class="title-name">个人资料</span>
+    <div class="save"></div>
+</header>
+<div class="content">
+    <div class="head-portrait">
+        <img class="head-portrait-img" src="../../images/caiwuguanli.png" alt="">
+        <input class="avatar" type="file">
+    </div>
+    <ul class="list">
+        <li class="list-li">
+            <p>姓名</p>
+            <input class="ipt" type="text" placeholder="请输入">
+        </li>
+        <li class="list-li">
+            <p>性别</p>
+            <input class='ipt-radio' type="radio" name="sex" value="men">男
+            <input class='ipt-radio' type="radio" name="sex" value="women">女
+        </li>
+        <li class="list-li">
+            <p>邮箱</p>
+            <input class="ipt" type="text" placeholder="请输入">
+        </li>
+        <li class="list-li">
+            <p>身份证号</p>
+            <input class="ipt" type="text" placeholder="请输入">
+        </li>
+        <li class="list-li">
+            <p>个人说明（50字以内）</p>
+            <textarea class="tex" type="text" placeholder="请输入" maxlength="50"></textarea>
+        </li>
+    </ul>
+</div>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+//    ajax()
+    function ajax(){
+        console.log('ajax');
+        rrz.ajax(
+                "http://192.168.2.190:8080/web/h5/user/item.html",
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                },
+                function (data, msg) {
+                    console.log(data);
+                },
+                function (data, msg) {
+                    console.log(data);
+                });
+    }
+    save();
+    function save(){
+        console.log('save');
+        rrz.ajax(
+                "http://192.168.2.190:8080/web/h5/user/save.html",
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                    userName:'sunxt',//姓名
+                    gender:'2',//性别
+                    remark:'2',//个人简介
+                    faceFileName:'',//头像名称
+                    faceUrlData:'',//头像地址
+                    email:'526028139@qq.com',//邮箱
+                    idNumber:'',//身份证号
+                },
+                function (data, msg) {
+                    console.log(data);
+                    console.log(msg);
+                },
+                function (data, msg) {
+                    console.log(msg);
+                });
+    }
+</script>
+</body>
+</html>

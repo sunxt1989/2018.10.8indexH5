@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建费用单</title>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content=/"portrait">
+    <!-- QQ强制竖屏 -->
+    <!--<meta name="x5-orientation" content="portrait">-->
+    <!-- UC强制全屏 -->
+    <!--<meta name="full-screen" content="yes">-->
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/LCalendar.min.css">
+    <link rel="stylesheet" href="../../css/iconfont.css">
+    <link rel="stylesheet" href="../../css/dropzone.css">
+    <link rel="stylesheet" href="../../css/newCost.css">
+    <script>
+        (function(designWidth, maxWidth) {
+            var doc = document,
+                    win = window;
+            var docEl = doc.documentElement;
+            var tid,rootItem,rootStyle;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                if (!maxWidth) {
+                    maxWidth = 540;
+                };
+                if (width > maxWidth) {
+                    width = maxWidth;
+                }
+                //与淘宝做法不同，直接采用简单的rem换算方法1rem=100px
+                var rem = width * 100 / designWidth;
+                //兼容UC开始
+                rootStyle="html{font-size:"+rem+'px !important}';
+                rootItem = document.getElementById('rootsize') || document.createElement("style");
+                if(!document.getElementById('rootsize')){
+                    document.getElementsByTagName("head")[0].appendChild(rootItem);
+                    rootItem.id='rootsize';
+                }
+                if(rootItem.styleSheet){
+                    rootItem.styleSheet.disabled||(rootItem.styleSheet.cssText=rootStyle)
+                }else{
+                    try{rootItem.innerHTML=rootStyle}catch(f){rootItem.innerText=rootStyle}
+                }
+                //兼容UC结束
+                docEl.style.fontSize = rem + "px";
+            };
+            refreshRem();
+
+            win.addEventListener("resize", function() {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function(e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function(e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(640, 640);
+    </script>
+</head>
+<body>
+<header>
+    <a href="costSheet.htm"><i class="icon iconfont icon-fanhui1 back"></i></a>
+    <span class="title-name">普通录入</span>
+</header>
+<div class="content">
+    <ul class="list">
+        <li class="list-li">
+            <p class="list-li-tit">费用类别</p>
+            <select name="type1" id="type1" onchange="changeType(this)">
+                <option value="0">请选择</option>
+            </select>
+            <span class="and">—</span>
+            <select name="type2" id="type2">
+                <option value="1">差旅费</option>
+            </select>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">费用金额</p>
+            <div class="pushMoney">
+                <span class="blue">￥：</span>
+                <input class="money" type="text" placeholder="请输入费用金额" onchange="changeMoney(this)">
+            </div>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">增值税专用发票税额</p>
+            <div class="pushMoney">
+                <span class="blue">￥：</span>
+                <input class="taxMoney" type="text" placeholder="请输入税额" onchange="changeTaxMoney(this)">
+            </div>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">日期</p>
+            <div class="Date">
+                <input id="Date" type="text" placeholder="请输入日期" readonly>
+            </div>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">出差目的</p>
+            <div class="objective">
+                <input id='work' type="radio" name="work" value="1" checked>
+                <label for="work">工作出差</label>
+                <input id='meeting' type="radio" name="work" value="2">
+                <label for="meeting">会议</label>
+                <input id='train' type="radio" name="work" value="3">
+                <label for="train">培训</label>
+            </div>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">发票张数</p>
+            <div class="reduce">
+                <i class="icon iconfont icon-jian"></i>
+            </div>
+            <span class="invoice-number">1</span>
+            <div class="add">
+                <i class="icon iconfont icon-jia"></i>
+            </div>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">费用描述</p>
+            <textarea class="description" placeholder="请输入费用描述" maxlength="50"></textarea>
+        </li>
+        <li class="list-li">
+            <p class="list-li-tit">上传发票</p>
+            <div class="dropzone dropzonesize" id="my-awesome-dropzone"></div>
+        </li>
+    </ul>
+</div>
+<div class="footer">
+    <div class="again">再录一笔</div>
+    <div class="save">保存</div>
+</div>
+<!--图片展示-->
+<div id="imgSlideModal">
+    <div class="imgBox">
+    </div>
+</div>
+<!--提示模态框-->
+<div class="message cf">
+    <p class="message-content">消息</p>
+    <i class="icon iconfont icon-guanbi message-close" onclick="closeMessage()"></i>
+</div>
+
+<div class="modal">
+    <p class="modal-msg">是否保存？</p>
+    <div class="confirm">确定</div>
+    <div class="cancel">取消</div>
+</div>
+<div class="loading"></div>
+
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/LCalendar.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/index.js"></script>
+<script src="../../js/addUrl.js"></script>
+<script src="../../js/dropzone.js"></script>
+<script>
+    let $type1 = $('#type1');//费用大类
+    let $type2 = $('#type2');//费用小类
+    let $and = $('.and');//横线
+    let costTypeHtml =''
+    let $imgSlideModal = $('#imgSlideModal');//上传图片
+    let $imgBox = $('.imgBox')
+    let $reduce = $('.reduce')//减号按钮
+    let $invoiceNumber = $('.invoice-number')//张数显示
+    let $add = $('.add')//加号按钮
+    let num = 1;//张数参数
+    let $money = $('.money')//费用金额
+    let $taxMoney = $('.taxMoney')//税额
+    let $Date = $('#Date')//日期
+    let $description = $('.description')//费用描述
+    let $typeCost = $('.typeCost')//费用类别a标签
+
+    let calendar = new LCalendar();//日期选择插件
+    let nowDate = new Date();//当前日期
+    let nowYear = nowDate.getFullYear()
+    let nowMonth = (nowDate.getMonth()+1) < 10 ? '0' + (nowDate.getMonth()+1) : (nowDate.getMonth()+1)
+    let nowDates = nowDate.getDate() < 10 ? '0' + nowDate.getDate() : nowDate.getDate()
+    let maxDate = nowYear + '-' + nowMonth + '-' + nowDates;
+
+    let $save = $('.save');//保存按钮
+    let $again = $('.again');//再录一笔按钮
+    let $loading = $('.loading');//loading遮罩
+
+    type1Ajax();
+    //保存按钮点击事件
+    $save.on('click',function(){
+        ajax(1);
+        $loading.show()
+    });
+    //再录一笔按钮点击事件
+    $again.on('click',function(){
+        ajax(2);
+        $loading.fadeIn('fast');
+    });
+
+    //选择费用大类时change事件
+    function changeType(e){
+        if($(e).val() < 4 && $(e).val() > 0){
+            type2Ajax($(e).val())
+        }else{
+            $type2.hide();
+            $and.hide();
+        }
+    }
+
+    //发票张数加减方法
+    $reduce.on('click',function(){
+        if(num == 1){
+            return
+        }else{
+            num--
+            $invoiceNumber.html(num)
+        }
+    });
+    $add.on('click',function(){
+        num++
+        $invoiceNumber.html(num)
+    });
+
+    //日期选择插件
+    calendar.init({
+        'trigger': '#Date',//标签id
+        'type': 'date',//date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择
+        'minDate':'1900-1-1',//最小日期 注意：该值会覆盖标签内定义的日期范围
+        'maxDate':maxDate//最大日期 注意：该值会覆盖标签内定义的日期范围
+    });
+    //输入金额的change事件
+    function changeMoney(e){
+        const str = /^[0-9]+(\.[0-9]{0,2})?$/;//判断只允许输入有0-2位小数的正实数
+        let value = unNumber(e.value);
+        console.log(value);
+        if(!str.test(value)){
+            changeMessage('1','请正确输入金额')
+            e.value = '0.00'
+        }else{
+            e.value = number(e.value)
+        }
+    }
+    function changeTaxMoney(e){
+        const str = /^[0-9]+(\.[0-9]{0,2})?$/;//判断只允许输入有0-2位小数的正实数
+        if(!str.test(e.value)){
+            changeMessage('1','请正确输入税额')
+            e.value = '0.00'
+        }else{
+            e.value = number(e.value)
+        }
+    }
+    //输入发票张数的change事件
+    function changeInvoice(e){
+        const str = /^\d+$/;//判断只允许输入正整数
+        if(!str.test(e.value)){
+            changeMessage('1','请正确输入发票张数')
+            e.value = '1'
+        }else if(e.value == '0'){
+            changeMessage('1','发票张数不能为0')
+            e.value = '1'
+        }
+    }
+    //获取费用类别方法
+    function type1Ajax(){
+        let url = addUrl('costList')
+        rrz.ajax(
+                url,
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                },
+                function (data, msg) {
+                    console.log(data);
+                    let html = '';
+                    for(let i in data){//传递参数大类，获取大类名称
+                        const type = data[i][0]
+                        const naem = data[i][1];
+                        html +='<option value="'+ type +'">'+ naem +'</option>'
+                    }
+                    $type1.append(html)
+                },
+                function (data, msg) {
+                    console.log(data);
+                    console.log(msg);
+                });
+    }
+    function type2Ajax(val){
+        $type2.show();
+        $and.show();
+        let url = addUrl('costOptionList');
+        rrz.ajax(
+                url,
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                    type:val
+                },
+                function (data, msg) {
+                    console.log(data);
+                    let html = '';
+                    for(let i in data){
+                        const type2 = data[i][0]
+                        const name = data[i][1]
+                        html +='<option value="'+ type2 +'">'+ name +'</option>'
+                    }
+                    $type2.html(html)
+                },
+                function (data, msg) {
+                    console.log(data);
+                    console.log(msg);
+                });
+    }
+
+    function ajax(n){
+        let url = addUrl('costSave');
+        let money = unNumber($money.val());
+        let type = $type1.val();
+        let childType = $type2.val();
+        let receiptDate = $Date.val();
+        let discription = $description.val();
+        let taxMoney = unNumber($taxMoney.val());
+        let aimType = $("input[name='work']:checked").val();
+
+
+        let imgUrl1 = ''
+        let imgUrl2 = ''
+        let imgUrl3 = ''
+        let imgUrl4 = ''
+        let imgName1 = ''
+        let imgName2 = ''
+        let imgName3 = ''
+        let imgName4 = ''
+
+        let $dzImage = $('.dz-image');
+        $dzImage.each(function(i){
+            console.log($(this).find('img').attr('src').split(',')[0]);
+            if(i == 0){
+                imgUrl1 = $(this).find('img').attr('src').split(',')[1]
+                imgName1 = $(this).next('.dz-details').find('.dz-filename').children().text()
+            }else if(i == 1){
+                imgUrl2 = $(this).find('img').attr('src').split(',')[1]
+                imgName2 = $(this).next('.dz-details').find('.dz-filename').children().text()
+            }else if(i == 2){
+                imgUrl3 = $(this).find('img').attr('src').split(',')[1]
+                imgName3 = $(this).next('.dz-details').find('.dz-filename').children().text()
+            }else if(i == 3){
+                imgUrl4 = $(this).find('img').attr('src').split(',')[1]
+                imgName4 = $(this).next('.dz-details').find('.dz-filename').children().text()
+            }
+        })
+        if(type == 0){
+            changeMessage('请选择费用类别')
+            return
+        }
+        if(money == 0 || money == ''){
+            changeMessage('请输入正确金额')
+            return
+        }
+        if(taxMoney == 0 || taxMoney == ''){
+            changeMessage('请输入正确税额')
+            return
+        }
+        if(receiptDate == ''){
+            changeMessage('请选择日期')
+            return
+        }
+        rrz.ajax(
+                url,
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                    costId:0,
+                    type:type,
+                    childType:childType,
+                    money:money,
+                    receiptDate:receiptDate,
+                    discription:discription,
+                    taxMoney:taxMoney,
+                    aimType:aimType,
+                    receiptCount:num,
+                    imgUrl1:imgUrl1,
+                    imgUrl2:imgUrl2,
+                    imgUrl3:imgUrl3,
+                    imgUrl4:imgUrl4,
+                    imgName1:imgName1,
+                    imgName2:imgName2,
+                    imgName3:imgName3,
+                    imgName4:imgName4
+                },
+                function (data, msg) {
+                    if(n == 1){
+                        window.location.href='costSheet.htm'
+                    }else if(n == 2){
+                        window.location.reload()
+                        $loading.fadeOut('fast')
+                    }
+                },
+                function (data, msg) {
+                    $loading.hide()
+                    changeMessage(msg);
+                });
+    }
+
+    Dropzone.options.myAwesomeDropzone = {
+        url: '../../',
+        method: "post",
+        maxFiles: 4,//最大文件数
+        maxFilesize: 4,//MB
+        paramName: "file",//文件上传后端接收的参数名
+        autoProcessQueue:false,
+        init: function() {
+            var myDropzone = this
+            myDropzone.on("error", function(file) {
+                changeMessage(file.previewElement.innerText)
+                myDropzone.removeFile(file);
+            });
+        }
+    };
+    //展示上传图片
+    $('body').on('click','.dz-preview',function(){
+        var html = $(this).children('.dz-image').html()
+        $imgBox.html(html)
+        $imgSlideModal.show()
+    });
+    //关闭展示上传图片
+    $imgBox.on('click',function(){
+        $imgSlideModal.hide()
+    })
+
+</script>
+</body>
+</html>

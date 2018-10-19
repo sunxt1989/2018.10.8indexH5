@@ -1,0 +1,273 @@
+header{
+    width:100%;
+    height:0.8rem;
+    position: fixed;
+    top:0;
+    left:0;
+    text-align: center;
+    background-color: #00ccff;
+    color: #fff;
+    line-height: 0.8rem;
+    z-index:1000;
+}
+header .title-name{
+    display: inline-block;
+    max-width:5rem;
+    height: 0.8rem;
+    overflow: hidden;
+    font-size: 0.3rem;
+}
+header .back{
+    display: inline-block;
+    position: absolute;
+    top:0rem;
+    left:0.2rem;
+    font-size: 0.4rem;
+    color: #fff;
+}
+.content{
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+.content .list{
+    width:100%;
+    padding: 0 0.2rem;
+}
+.content .list-li{
+    width:100%;
+    border-bottom: 0.02rem solid #ccc;
+    padding: 0.1rem 0;
+    font-size:0.28rem;
+    margin-top: 0.2rem;
+}
+.content .list-li .list-li-tit{
+    color: #999;
+}
+.content .list-li #type1{
+    display: inline-block;
+    margin: 0.2rem 0;
+    color: #333;
+    padding: 0.05rem 0.1rem;
+}
+.content .list-li .and{
+    display: none;
+}
+.content .list-li #type2{
+    display: none;
+    margin: 0.2rem 0;
+    color: #333;
+    padding: 0.05rem 0.1rem;
+}
+.content .list-li .typeCost .typeCost-img{
+    width:0.4rem;
+    height:0.4rem;
+    margin-right: 0.2rem;
+}
+.content .list-li .typeCost .icon-fanhui2{
+    display: inline-block;
+    float: right;
+}
+
+.content .list-li .pushMoney{
+    padding: 0.2rem 0;
+}
+.content .list-li .pushMoney .money{
+    padding: 0 0.2rem;
+    color: #00ccff;
+}
+.content .list-li .pushMoney .taxMoney{
+    padding: 0 0.2rem;
+    color: #00ccff;
+}
+.content .list-li .Date{
+    padding: 0.2rem 0;
+}
+.content .list-li .Date #Date{
+    color: #333;
+}
+.content .list-li .objective{
+    padding: 0.2rem 0;
+}
+.content .list-li .objective label{
+    margin-right: 0.2rem;
+}
+.content .list-li .reduce{
+    display: inline-block;
+    width:0.4rem;
+    height:0.4rem;
+    font-size:0.5rem;
+    text-align: center;
+    line-height: 0.3rem;
+    margin: 0.1rem 0;
+}
+.content .list-li .add{
+    display: inline-block;
+    width:0.4rem;
+    height:0.4rem;
+    font-size:0.5rem;
+    text-align: center;
+    line-height: 0.3rem;
+    margin: 0.1rem 0;
+}
+.content .list-li .description{
+    width:100%;
+    outline: none;
+    resize: none;
+    border: none;
+    padding: 0.2rem 0;
+}
+.content .list-li .dropzone{
+    width:6rem;
+    margin-top: 0.2rem;
+    height: 6.2rem;
+}
+.content .list-li .dropzonesize{
+    overflow: auto;
+    display: inline-block;
+}
+.content .list-li .dropzone .dz-preview{
+    margin: 0.15rem;
+}
+.content .list-li .dropzone .dz-preview .dz-image{
+    width:2rem;
+    height:2rem;
+    border-radius: 10px;
+}
+.content .list-li .dropzone .dz-preview .dz-success-mark, .content .list-li .dropzone .dz-preview .dz-error-mark{
+    margin-left: -0.4rem;
+    margin-top: -0.4rem;
+}
+.content .list-li .dropzone .dz-preview .dz-details .dz-size{
+    font-size: 0.26rem;
+}
+.content .list-li .dropzone .dz-preview .dz-success-mark svg, .dropzone .dz-preview .dz-error-mark svg{
+    width: 0.8rem;
+    height: 0.8rem;
+}
+.content .list-li .dropzone .dz-preview .dz-remove{
+    margin-top: 0.1rem;
+}
+.content .list-li .dropzone .dz-preview .dz-error-message{
+    opacity:0
+}
+#imgSlideModal{
+    position: fixed;
+    top:0;
+    width:100%;
+    height:100%;
+    display: none;
+    background-color: #fff;
+    z-index:1000000;
+    opacity:1;
+}
+#imgSlideModal .imgBox{
+    width: 6rem;
+    height: 8rem;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#imgSlideModal .imgBox img{
+    width:100%;
+}
+.footer{
+    width:100%;
+    height:0.8rem;
+    position: fixed;
+    bottom:0;
+    left:0;
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+    line-height: 0.8rem;
+    z-index:1000;
+    border-top: 0.02rem solid #ccc;
+}
+.footer .again{
+    display: inline-block;
+    width:2rem;
+    height:0.6rem;
+    background-color: #84ccc8;
+    color: #fff;
+    line-height: 0.6rem;
+    text-align: center;
+    margin-top: 0.1rem;
+    border-radius: 0.1rem;
+    font-size:0.3rem;
+}
+.footer .save{
+    display: inline-block;
+    width:2rem;
+    height:0.6rem;
+    background-color: #11c6f1;
+    color: #fff;
+    line-height: 0.6rem;
+    text-align: center;
+    margin-top: 0.1rem;
+    border-radius: 0.1rem;
+    font-size:0.3rem;
+}
+.footer .delete{
+    display: inline-block;
+    width:2rem;
+    height:0.6rem;
+    background-color: #e37043;
+    color: #fff;
+    line-height: 0.6rem;
+    text-align: center;
+    margin-top: 0.1rem;
+    border-radius: 0.1rem;
+    font-size:0.3rem;
+}
+.message{
+    width:5rem;
+    padding: 0.2rem;
+    position: fixed;
+    top:1rem;
+    left:50%;
+    margin-left: -2.5rem;
+    background-color: #ccc;
+    border-radius: 5px;
+    color: #333;
+    display: none;
+    z-index:100000;
+}
+.message .message-content{
+    display: inline-block;
+    float: left;
+}
+.message .message-close{
+    display: inline-block;
+    float: right;
+}
+.modal{
+    width:5rem;
+    height: 3rem;
+    background-color: #fff;
+    border-radius:5px;
+    position: fixed;
+    top:2rem;
+    left:50%;
+    margin-left: -2.5rem;
+    z-index:100000;
+    text-align: center;
+    color: #333;
+}
+.modal .modal-msg{
+    font-size: 0.34rem;
+    margin-top: 0.6rem;
+}
+.loading{
+    display: block;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: #ccc;
+    opacity:0.6;
+    z-index:99999;
+}

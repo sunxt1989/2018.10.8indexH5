@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content=/"portrait">
+    <!-- QQ强制竖屏 -->
+    <!--<meta name="x5-orientation" content="portrait">-->
+    <!-- UC强制全屏 -->
+    <!--<meta name="full-screen" content="yes">-->
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script>
+        (function(designWidth, maxWidth) {
+            var doc = document,
+                    win = window;
+            var docEl = doc.documentElement;
+            var tid,rootItem,rootStyle;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                if (!maxWidth) {
+                    maxWidth = 540;
+                };
+                if (width > maxWidth) {
+                    width = maxWidth;
+                }
+                //与淘宝做法不同，直接采用简单的rem换算方法1rem=100px
+                var rem = width * 100 / designWidth;
+                //兼容UC开始
+                rootStyle="html{font-size:"+rem+'px !important}';
+                rootItem = document.getElementById('rootsize') || document.createElement("style");
+                if(!document.getElementById('rootsize')){
+                    document.getElementsByTagName("head")[0].appendChild(rootItem);
+                    rootItem.id='rootsize';
+                }
+                if(rootItem.styleSheet){
+                    rootItem.styleSheet.disabled||(rootItem.styleSheet.cssText=rootStyle)
+                }else{
+                    try{rootItem.innerHTML=rootStyle}catch(f){rootItem.innerText=rootStyle}
+                }
+                //兼容UC结束
+                docEl.style.fontSize = rem + "px";
+            };
+            refreshRem();
+
+            win.addEventListener("resize", function() {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function(e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function(e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(640, 640);
+    </script>
+</head>
+<body>
+<header>
+    <i class="icon iconfont icon-31liebiao menu"></i>
+    <span class="companyName">账套名称账套名称账套名称账套名称</span>
+</header>
+<div class="left">
+
+</div>
+<div class="content">
+    <div class="reimbursement">
+        <div class="tit">
+            <img class="tit-img" src="images/caiwuguanli.png" alt="">
+            <span>财务管理</span>
+        </div>
+        <ul class="list-ul cf">
+            <li class="list-ul-li">
+                <a href="components/Reimbursement/costSheet.htm">
+                    <img class="list-ul-li-img" src="images/feiyong.png" alt="">
+                </a>
+                <p class="list-ul-li-name">费用记录</p>
+                <p class="list-ul-li-num">未报销0笔</p>
+                <p class="list-ul-li-money">0元</p>
+            </li>
+            <li class="list-ul-li">
+                <img class="list-ul-li-img" src="images/baoxiao.png" alt="">
+                <p class="list-ul-li-name">费用报销</p>
+                <p class="list-ul-li-num">待审核0笔</p>
+                <p class="list-ul-li-money">0元</p>
+            </li>
+            <li class="list-ul-li">
+                <img class="list-ul-li-img" src="images/jiekuan.png" alt="">
+                <p class="list-ul-li-name">记一笔借款</p>
+                <p class="list-ul-li-num">借款0笔</p>
+                <p class="list-ul-li-money">0元</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/common.js"></script>
+<script>
+    ajax()
+    function ajax(){
+        console.log('1');
+        rrz.ajax(
+                'https://192.168.2.190:8443/web/h5/receipt/my/list.html',
+                {
+                    userId:'1578838440249657438',
+                    token:'lEbnZ0HCwpGzbAtg7LPp3UtETgJo2nmM9NYg5jjHkGXlKTMKMBbWjmVEYhPyjwZm',
+                },
+                function (data, msg) {
+                    console.log(data);
+                    console.log(msg);
+                },
+                function (data, msg) {
+                    console.log(data);
+                    console.log(msg);
+                });
+    }
+</script>
+</body>
+</html>
